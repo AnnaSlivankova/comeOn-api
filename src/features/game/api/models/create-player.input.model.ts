@@ -1,6 +1,12 @@
-import { Trim } from 'src/infrastructure/decorators/transform/trim';
+import {
+  IsAlpha,
+  IsDefined,
+  IsNumber,
+  IsString,
+  Length,
+} from 'class-validator';
+import { Trim } from '../../../../infrastructure/decorators/transform/trim';
 import { ToLowerCase } from '../../../../infrastructure/decorators/transform/to-lower-case';
-import { IsAlpha, IsDefined, IsNumber, IsString, Length } from 'class-validator';
 
 export class CreatePlayerInputModel {
   @Trim()

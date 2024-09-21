@@ -1,7 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { applyAppSettings } from './settings/apply-app-settings';
-import process from 'process';
+import { config } from 'dotenv';
+import * as process from 'process';
+
+config();
 
 const PORT = process.env.PORT || 5000;
 

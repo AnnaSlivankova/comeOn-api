@@ -22,7 +22,8 @@ export class GameController {
   constructor(
     private playerService: PlayerService,
     private playerQueryRepository: PlayerQueryRepository,
-  ) {}
+  ) {
+  }
 
   @Post()
   async createPlayer(
@@ -44,5 +45,10 @@ export class GameController {
     const players = await this.playerQueryRepository.getAll(query);
     if (!players) throw new BadRequestException();
     return players;
+  }
+
+  @Get('/ping')
+  async ping(): Promise<boolean> {
+    return true;
   }
 }

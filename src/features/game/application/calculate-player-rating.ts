@@ -9,6 +9,7 @@ export const calculatePlayerRating = (
   if (score === 0) return 0;
   const efficiency = (score / TOTAL_ITEMS) * 100;
   const timeBonus = (remainingTime / TIME) * BONUS;
+  const totalRating = (efficiency + timeBonus).toFixed();
 
-  return efficiency + timeBonus;
+  return +totalRating;
 };

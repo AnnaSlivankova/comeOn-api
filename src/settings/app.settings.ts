@@ -12,3 +12,9 @@ export const CONFIG = {
   DB_NAME: process.env.DB_NAME as string,
   MONGO_URL: process.env.MONGO_URL as string,
 };
+
+export const GAME_CONFIG = {
+  TIME: 20,
+  TOTAL_ITEMS: 12,
+  BONUS: 100,
+} as const;

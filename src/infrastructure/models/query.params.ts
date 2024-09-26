@@ -37,7 +37,8 @@ export class QueryParams {
 
   @IsString()
   @IsOptional()
-  public sortBy = 'createdAt';
+  public sortBy = 'rating';
+  // public sortBy = 'createdAt';
 
   @IsEnum(SortDirection)
   @IsOptional()

@@ -8,7 +8,7 @@ export class PlayerService {
   constructor(private playerRepository: PlayerRepository) {}
 
   async create(dto: CreatePlayerInputModel): Promise<string | null> {
-    const player = new Player(dto);
-    return await this.playerRepository.create(player);
+    const newPlayer = new Player(dto);
+    return await this.playerRepository.create(newPlayer);
   }
 }

@@ -29,9 +29,7 @@ export class CreatePlayerInputModel {
   @IsDefined()
   score: number;
 
-  @Trim()
-  @ToLowerCase()
-  @IsString({ message: 'value must be a string' })
+  @IsNumber()
   @IsDefined()
-  time: string;
+  time: number;
 }

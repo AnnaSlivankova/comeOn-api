@@ -56,8 +56,8 @@ export class PlayerQueryRepository {
       const players = await this.playerModel
         .find(filter)
         .sort(sortOptions)
-        // .skip((pageNumber - 1) * pageSize)
-        // .limit(pageSize)
+        .skip((pageNumber - 1) * pageSize)
+        .limit(pageSize)
         .exec();
 
       if (!players) return null;

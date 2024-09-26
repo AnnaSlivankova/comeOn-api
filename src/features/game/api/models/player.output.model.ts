@@ -5,7 +5,8 @@ export class PlayerOutputModel {
   name: string;
   surname: string;
   score: number;
-  time: string;
+  rating: number;
+  time: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -20,6 +21,7 @@ export const playerOutputModelMapper = (
   outputModel.name = player.name;
   outputModel.surname = player.surname;
   outputModel.score = player.score;
+  outputModel.rating = player.rating;
   outputModel.time = player.time;
   outputModel.createdAt = player.createdAt.toISOString();
   outputModel.updatedAt = player.updatedAt.toISOString();

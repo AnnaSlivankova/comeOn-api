@@ -16,5 +16,5 @@ export const CONFIG = {
 export const GAME_CONFIG = {
   TIME: 20,
   TOTAL_ITEMS: 12,
-  BONUS: 100,
+  BONUS: 30,
 } as const;

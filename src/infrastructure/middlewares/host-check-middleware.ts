@@ -14,6 +14,8 @@ export class HostCheckMiddleware implements NestMiddleware {
       'https://hanna-lib.ru',
       'http://localhost:3000/',
       'localhost:3000',
+      'http://5.253.188.2:10048/',
+      '5.253.188.2:10048',
     ];
     const host = req.headers.host;
 

@@ -16,6 +16,8 @@ export class HostCheckMiddleware implements NestMiddleware {
       'localhost:3000',
       'http://5.253.188.2:10048/',
       '5.253.188.2:10048',
+      'https://come-on-psi.vercel.app/',
+      'come-on-psi.vercel.app',
     ];
     const host = req.headers.host;
 

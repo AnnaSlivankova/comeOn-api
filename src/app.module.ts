@@ -14,8 +14,8 @@ import { ScheduleModule } from '@nestjs/schedule';
   imports: [
     // ConfigModule.forRoot(),
     ScheduleModule.forRoot(),
-    MongooseModule.forRoot(`${CONFIG.DB_URL}/${CONFIG.DB_NAME}`),
-    // MongooseModule.forRoot(`${CONFIG.MONGO_URL}`),
+    // MongooseModule.forRoot(`${CONFIG.DB_URL}/${CONFIG.DB_NAME}`),
+    MongooseModule.forRoot(`${CONFIG.MONGO_URL}`),
     ThrottlerModule.forRoot([
       {
         ttl: 10000,

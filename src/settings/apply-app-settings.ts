@@ -12,12 +12,14 @@ export const applyAppSettings = (app: INestApplication) => {
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
   app.enableCors({
     origin: [
+      'http://localhost:3001',
       'http://localhost:5173',
       'http://localhost:5174',
       'http://localhost:5175',
       'https://come-on-psi.vercel.app',
       'https://hanna-lib.ru',
       'www.hanna-lib.ru',
+      'https://api.hanna-lib.ru',
     ],
     credentials: true,
   });

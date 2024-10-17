@@ -1,43 +1,40 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { User } from '../domain/users.entity';
 import { Model } from 'mongoose';
+import {
+  UserOutputModel,
+  userOutputModelMapper,
+} from '../api/models/user.output.model';
 import {
   QueryParams,
   SortDirection,
 } from '../../../infrastructure/models/query.params';
 import { PaginationOutput } from '../../../infrastructure/models/pagination.output';
-import { Player } from '../domain/player.entity';
-import {
-  PlayerOutputModel,
-  playerOutputModelMapper,
-} from '../api/models/player.output.model';
 
 @Injectable()
-export class PlayerQueryRepository {
+export class UsersQueryRepository {
   constructor(
-    @InjectModel(Player.name)
-    private readonly playerModel: Model<Player>,
+    @InjectModel(User.name)
+    private readonly userModel: Model<User>,
   ) {
   }
 
-  async getById(id: string): Promise<PlayerOutputModel | null> {
+  async getById(id: string): Promise<UserOutputModel | null> {
     try {
-      const player = await this.playerModel
-        .findById(id, { __v: false })
-        .populate({ path: 'userId', model: 'User' })
-        .exec();
-      if (!player) return null;
+      const user = await this.userModel.findById(id, { __v: false }).exec();
+      if (!user) return null;
 
-      return playerOutputModelMapper(player as any);
+      return userOutputModelMapper(user);
     } catch (e) {
-      console.log('PlayerQueryRepository/getById', e);
+      console.log('UsersQueryRepository/getById', e);
       return null;
     }
   }
 
   async getAll(
     query: QueryParams,
-  ): Promise<null | PaginationOutput<PlayerOutputModel>> {
+  ): Promise<null | PaginationOutput<UserOutputModel>> {
     try {
       const { searchNameTerm, pageSize, pageNumber, sortDirection, sortBy } =
         query;
@@ -54,26 +51,25 @@ export class PlayerQueryRepository {
       const sortOptions = {};
       sortOptions[sortBy] = sortDirection === SortDirection.ASC ? 1 : -1;
 
-      const count = await this.playerModel.countDocuments(filter);
+      const count = await this.userModel.countDocuments(filter);
 
-      const players = await this.playerModel
+      const players = await this.userModel
         .find(filter)
         .sort(sortOptions)
         // .skip((pageNumber - 1) * pageSize)
-        // .limit(pageSize)
-        .populate({ path: 'userId', model: 'User' })
+        .limit(pageSize)
         .exec();
 
       if (!players) return null;
 
-      return new PaginationOutput<PlayerOutputModel>(
+      return new PaginationOutput<UserOutputModel>(
         pageNumber,
         pageSize,
         count,
-        players.map(playerOutputModelMapper),
+        players.map(userOutputModelMapper),
       );
     } catch (e) {
-      console.log('PlayerQueryRepository/getAll', e);
+      console.log('UsersQueryRepository/getAll', e);
       return null;
     }
   }

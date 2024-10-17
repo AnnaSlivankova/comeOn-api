@@ -1,28 +1,31 @@
 import { PlayerDocument } from '../../domain/player.entity';
+import { UserDocument } from '../../../users/domain/users.entity';
 
 export class PlayerOutputModel {
   id: string;
   name: string;
   surname: string;
-  score: number;
-  rating: number;
-  time: number;
+  userId: string;
+  prevGamesScore: number;
+  totalScore: number;
+  gamesCount: number;
   createdAt: string;
   updatedAt: string;
 }
 
 //MAPPER
 export const playerOutputModelMapper = (
-  player: PlayerDocument,
+  player: PlayerDocument & { userId: UserDocument },
 ): PlayerOutputModel => {
   const outputModel = new PlayerOutputModel();
 
   outputModel.id = player._id.toString();
-  outputModel.name = player.name;
-  outputModel.surname = player.surname;
-  outputModel.score = player.score;
-  outputModel.rating = player.rating;
-  outputModel.time = player.time;
+  outputModel.name = player.userId.name;
+  outputModel.surname = player.userId.surname;
+  outputModel.userId = player.userId.id;
+  outputModel.totalScore = player.totalScore;
+  outputModel.gamesCount = player.gamesCount;
+  outputModel.prevGamesScore = player.prevGamesScore;
   outputModel.createdAt = player.createdAt.toISOString();
   outputModel.updatedAt = player.updatedAt.toISOString();
 

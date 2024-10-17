@@ -1,23 +1,19 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import { calculatePlayerRating } from '../application/calculate-player-rating';
 
 @Schema()
 export class Player {
-  @Prop({ required: true, type: String })
-  name: string;
+  @Prop({ required: true, type: Number, default: 0 })
+  prevGamesScore: number;
 
   @Prop({ required: true, type: String })
-  surname: string;
+  userId: string;
 
   @Prop({ required: true, type: Number })
-  score: number;
+  totalScore: number;
 
-  @Prop({ required: true, type: Number })
-  rating: number;
-
-  @Prop({ required: true, type: Number })
-  time: number;
+  @Prop({ required: true, type: Number, default: 0 })
+  gamesCount: number;
 
   @Prop({
     required: true,
@@ -32,16 +28,35 @@ export class Player {
   updatedAt: Date;
 
   constructor(data: Partial<Player>) {
-    this.name = data.name || '';
-    this.surname = data.surname || '';
-    this.score = data.score || 0;
-    this.time = data.time || 0;
-    this.rating = calculatePlayerRating(this.score, this.time);
-
+    this.prevGamesScore = data.prevGamesScore;
+    this.userId = data.userId;
+    this.totalScore = data.totalScore;
+    this.gamesCount = data.gamesCount;
     this.createdAt = new Date();
+    this.updatedAt = new Date();
+  }
+
+  updatePlayerGamesCount() {
+    this.gamesCount += 1;
+    this.updatedAt = new Date();
+  }
+
+  updatePlayerTotalScore(totalScore: number) {
+    this.totalScore = totalScore;
     this.updatedAt = new Date();
   }
 }
 
 export const PlayerSchema = SchemaFactory.createForClass(Player);
+// Добавляем методы в схему
+PlayerSchema.methods.updatePlayerGamesCount = function() {
+  this.gamesCount += 1;
+  this.updatedAt = new Date();
+};
+
+PlayerSchema.methods.updatePlayerTotalScore = function(totalScore: number) {
+  this.totalScore = totalScore;
+  this.updatedAt = new Date();
+};
+
 export type PlayerDocument = HydratedDocument<Player>;

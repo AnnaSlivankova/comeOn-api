@@ -3,6 +3,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
   Query,
   UseGuards,
@@ -15,6 +16,8 @@ import { PlayerQueryRepository } from '../infrastructure/player-query-repository
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { QueryParams } from '../../../infrastructure/models/query.params';
 import { PaginationOutput } from '../../../infrastructure/models/pagination.output';
+import { AuthBearerGuard } from '../../../infrastructure/guards/auth.bearer.guard';
+import { UpdatePlayerInputModel } from './models/update-player.input.model';
 
 @UseGuards(ThrottlerGuard)
 @Controller(PATH.GAME)
@@ -25,6 +28,7 @@ export class GameController {
   ) {
   }
 
+  @UseGuards(AuthBearerGuard)
   @Post()
   async createPlayer(
     @Body() inputDto: CreatePlayerInputModel,
@@ -38,13 +42,37 @@ export class GameController {
     return player;
   }
 
+  @UseGuards(AuthBearerGuard)
+  @Post(':id')
+  async updatePlayer(
+    @Param('id') id: string,
+    @Body() inputDto: UpdatePlayerInputModel,
+  ): Promise<PlayerOutputModel> {
+    const playerId = await this.playerService.update(inputDto);
+    if (!playerId) throw new BadRequestException();
+
+    const player = await this.playerQueryRepository.getById(playerId);
+    if (!player) throw new BadRequestException();
+
+    return player;
+  }
+
   @Get()
   async getAllPlayers(
     @Query() query: QueryParams,
   ): Promise<PaginationOutput<PlayerOutputModel>> {
     const players = await this.playerQueryRepository.getAll(query);
     if (!players) throw new BadRequestException();
+
     return players;
+  }
+
+  @Get(':id')
+  async getPlayerById(@Param('id') id: string): Promise<PlayerOutputModel> {
+    const player = await this.playerQueryRepository.getById(id);
+    if (!player) throw new BadRequestException();
+
+    return player;
   }
 
   @Get('/ping')

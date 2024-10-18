@@ -97,7 +97,7 @@ export class AuthController {
     res.cookie('refreshToken', token, {
       httpOnly: true,
       secure: true,
-      // secure: process.env.NODE_ENV !== "development"
+      sameSite: 'none',
     });
   }
 
@@ -105,7 +105,7 @@ export class AuthController {
     res.clearCookie('refreshToken', {
       httpOnly: true,
       secure: true,
-      // secure: process.env.NODE_ENV !== "development"
+      sameSite: 'none',
     });
   }
 }

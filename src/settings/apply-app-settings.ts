@@ -13,13 +13,11 @@ export const applyAppSettings = (app: INestApplication) => {
   app.enableCors({
     origin: [
       'http://localhost:3001',
-      'http://localhost:5173',
-      'http://localhost:5174',
-      'http://localhost:5175',
+      'http://5.253.188.2:3001/',
+      '5.253.188.2:3001',
       'https://come-on-psi.vercel.app',
       'https://hanna-lib.ru',
       'www.hanna-lib.ru',
-      'https://api.hanna-lib.ru',
     ],
     credentials: true,
   });

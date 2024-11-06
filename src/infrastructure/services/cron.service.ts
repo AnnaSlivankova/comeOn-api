@@ -24,7 +24,7 @@ export class CronService {
   // @Cron(CronExpression.EVERY_5_SECONDS)
   // // @Cron(CronExpression.EVERY_5_MINUTES)
   // async test() {
-  //   await this.usersService.updateUsersPosition()
+  //   // await this.usersService.updateUsersPosition()
   //   // await this.playerService.resetPlayersData();
   //   console.log('cron');
   // }

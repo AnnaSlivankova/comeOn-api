@@ -7,6 +7,7 @@ export enum PATH {
   GAME = 'game',
   USERS = 'users',
   AUTH = 'auth',
+  QUIZ = 'quiz'
 }
 
 export const CONFIG = {
@@ -21,7 +22,7 @@ export const CONFIG = {
 };
 
 export const GAME_CONFIG = {
-  TIME: 30,
-  TOTAL_ITEMS: 9,
-  BONUS: 30,
+  TIME: 180,
+  TOTAL_ITEMS: 50,
+  BONUS: 150,
 } as const;

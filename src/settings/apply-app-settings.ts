@@ -13,6 +13,8 @@ export const applyAppSettings = (app: INestApplication) => {
   app.enableCors({
     origin: [
       'http://localhost:3001',
+      'http://localhost:3000',
+      'http://localhost:5000',
       'http://5.253.188.2:3001/',
       '5.253.188.2:3001',
       'https://come-on-psi.vercel.app',

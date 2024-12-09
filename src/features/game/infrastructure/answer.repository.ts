@@ -86,7 +86,6 @@ export class AnswerRepository {
         .where({ userId, questionId })
         .exec();
 
-      console.log('answer', answer);
       if (!answer) return false;
 
       return !!answer;

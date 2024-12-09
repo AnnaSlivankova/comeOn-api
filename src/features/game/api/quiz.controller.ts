@@ -85,7 +85,7 @@ export class QuizController {
     return questions;
   }
 
-  @UseGuards(AuthBearerGuard)
+  // @UseGuards(AuthBearerGuard)
   @Get('info')
   async getQuizInfo() {
     const info = await this.quizService.getQuizInfo();

@@ -18,6 +18,8 @@ import { QueryParams } from '../../../infrastructure/models/query.params';
 import { PaginationOutput } from '../../../infrastructure/models/pagination.output';
 import { AuthBearerGuard } from '../../../infrastructure/guards/auth.bearer.guard';
 import { UpdatePlayerInputModel } from './models/update-player.input.model';
+import { AuthBasicGuard } from '../../../infrastructure/guards/auth.basic.guard';
+import { CreatePlayerByAdminInputModel } from './models/create-player-by-admin.input.model';
 
 @UseGuards(ThrottlerGuard)
 @Controller(PATH.GAME)
@@ -26,6 +28,20 @@ export class GameController {
     private playerService: PlayerService,
     private playerQueryRepository: PlayerQueryRepository,
   ) {
+  }
+
+  @UseGuards(AuthBasicGuard)
+  @Post('admin/player')
+  async createPlayerByAdmin(
+    @Body() inputDto: CreatePlayerByAdminInputModel,
+  ): Promise<PlayerOutputModel> {
+    const id = await this.playerService.createByAdmin(inputDto);
+    if (!id) throw new BadRequestException();
+
+    const player = await this.playerQueryRepository.getById(id);
+    if (!player) throw new BadRequestException();
+
+    return player;
   }
 
   @UseGuards(AuthBearerGuard)

@@ -4,6 +4,7 @@ import { Player } from '../domain/player.entity';
 import { CreatePlayerInputModel } from '../api/models/create-player.input.model';
 import { UpdatePlayerInputModel } from '../api/models/update-player.input.model';
 import { calculatePlayerRating } from './calculate-player-rating';
+import { CreatePlayerByAdminInputModel } from '../api/models/create-player-by-admin.input.model';
 
 @Injectable()
 export class PlayerService {
@@ -21,6 +22,22 @@ export class PlayerService {
     if (player.gamesCount === 3) throw new BadRequestException('max attempts count');
 
     player.updatePlayerGamesCount();
+    await this.playerRepository.update(player);
+    return player._id.toString();
+  }
+
+  async createByAdmin(
+    dto: CreatePlayerByAdminInputModel,
+  ): Promise<string | null> {
+    const { userId, score } = dto;
+    const player = await this.playerRepository.getOneByUserId(userId);
+
+    if (!player) {
+      const newPlayer = new Player({ userId, gamesCount: 1, totalScore: score });
+      return await this.playerRepository.create(newPlayer);
+    }
+
+    player.updateScoreByAdmin(score);
     await this.playerRepository.update(player);
     return player._id.toString();
   }

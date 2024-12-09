@@ -15,6 +15,10 @@ import { QuestionRepository } from './infrastructure/question.repository';
 import { QuestionQueryRepository } from './infrastructure/question-query-repository';
 import { AnswerRepository } from './infrastructure/answer.repository';
 import { Answer, AnswerSchema } from './domain/answer.entity';
+import { Info, InfoSchema } from './domain/info.entity';
+import { InfoRepository } from './infrastructure/info.repository';
+import { RightAnswer, RightAnswerSchema } from './domain/right-answer.entity';
+import { RightAnswersRepository } from './infrastructure/right-answers.repository';
 
 @Module({
   imports: [
@@ -22,6 +26,8 @@ import { Answer, AnswerSchema } from './domain/answer.entity';
       entity(Player, PlayerSchema),
       entity(Question, QuestionSchema),
       entity(Answer, AnswerSchema),
+      entity(Info, InfoSchema),
+      entity(RightAnswer, RightAnswerSchema),
     ]),
     AuthModule,
     UsersModule,
@@ -36,6 +42,8 @@ import { Answer, AnswerSchema } from './domain/answer.entity';
     QuestionRepository,
     QuestionQueryRepository,
     AnswerRepository,
+    InfoRepository,
+    RightAnswersRepository,
   ],
   exports: [PlayerRepository, PlayerQueryRepository, PlayerService],
 })

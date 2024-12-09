@@ -45,12 +45,22 @@ export class Player {
     this.totalScore = totalScore;
     this.updatedAt = new Date();
   }
+
+  updateScoreByAdmin(score: number) {
+    this.totalScore = this.totalScore + score;
+    this.updatedAt = new Date();
+  }
 }
 
 export const PlayerSchema = SchemaFactory.createForClass(Player);
 // Добавляем методы в схему
 PlayerSchema.methods.updatePlayerGamesCount = function() {
   this.gamesCount += 1;
+  this.updatedAt = new Date();
+};
+
+PlayerSchema.methods.updateScoreByAdmin = function(score:number) {
+  this.totalScore = this.totalScore + score;
   this.updatedAt = new Date();
 };
 

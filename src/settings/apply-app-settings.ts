@@ -20,6 +20,7 @@ export const applyAppSettings = (app: INestApplication) => {
       'https://come-on-psi.vercel.app',
       'https://hanna-lib.ru',
       'www.hanna-lib.ru',
+      'https://come-on-git-staging-hannas-projects-b86d096a.vercel.app',
     ],
     credentials: true,
   });

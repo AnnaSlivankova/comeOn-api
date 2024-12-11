@@ -40,6 +40,12 @@ export class UsersController {
     return user;
   }
 
+  @UseGuards(AuthBasicGuard)
+  @Post('update-position')
+  async updateUsersPosition() {
+    return await this.usersService.updateUsersPosition();
+  }
+
   @Get()
   async getAllUsers(
     @Query() query: QueryParams,

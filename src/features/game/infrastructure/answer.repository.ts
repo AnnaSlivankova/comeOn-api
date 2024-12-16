@@ -31,7 +31,8 @@ export class AnswerRepository {
     try {
       const answers = await this.answerModel
         .find()
-        .sort({ userId: 'asc', day: 'asc', position: 'asc' })
+        // .sort({ userId: 'asc', day: 'asc', position: 'asc' })
+        .sort({ createdAt: 'asc', day: 'asc', position: 'asc' })
         .populate({
           path: 'userId',
           model: 'User',

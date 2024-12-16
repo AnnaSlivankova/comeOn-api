@@ -58,7 +58,8 @@ export class PlayerQueryRepository {
 
       const players = await this.playerModel
         .find(filter)
-        .sort(sortOptions)
+        .sort({ prevGamesScore: 'desc' })
+        // .sort(sortOptions)
         // .skip((pageNumber - 1) * pageSize)
         // .limit(pageSize)
         .populate({ path: 'userId', model: 'User' })

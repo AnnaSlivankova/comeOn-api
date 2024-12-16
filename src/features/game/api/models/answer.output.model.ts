@@ -29,11 +29,11 @@ export const answerOutputModelMapper = (
   a.name = dto.userId.name;
   a.surname = dto.userId.surname;
 
-  a.questionId = dto.questionId._id.toString();
-  a.question = dto.questionId.question;
-  a.rightAnswer = dto.questionId.answer;
-  a.day = dto.questionId.day;
-  a.position = dto.questionId.position;
+  a.questionId = dto.questionId?._id.toString() || 'no id';
+  a.question = dto.questionId?.question || 'no id';
+  a.rightAnswer = dto.questionId?.answer || 'no id';
+  a.day = dto.questionId?.day || 'no id';
+  a.position = dto.questionId?.position || 'no id';
 
   a.userAnswer = dto.answer;
 
